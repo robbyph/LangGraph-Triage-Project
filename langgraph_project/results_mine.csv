@@ -1,0 +1,13 @@
+graph,setting,keywords,caught,missed,over_escalated,missed_ids,over_escalated_ids
+baseline,narrow,rce|ransomware,2,4,1,A03|A04|A05|A06,A08
+baseline,add_exfil,rce|ransomware|exfil,2,4,1,A03|A04|A05|A06,A08
+baseline,add_critical,rce|ransomware|exfil|critical,2,4,1,A03|A04|A05|A06,A08
+baseline,add_admin,rce|ransomware|exfil|critical|admin,3,3,2,A04|A05|A06,A07|A08
+baseline,add_outbound,rce|ransomware|exfil|critical|admin|outbound,4,2,2,A04|A06,A07|A08
+baseline,add_credential,rce|ransomware|exfil|critical|admin|outbound|credential,5,1,2,A06,A07|A08
+baseline,add_mfa,rce|ransomware|exfil|critical|admin|outbound|credential|mfa,5,1,2,A06,A07|A08
+baseline,add_failed,rce|ransomware|exfil|critical|admin|outbound|credential|mfa|failed,5,1,3,A06,A07|A08|A09
+baseline,add_scan,rce|ransomware|exfil|critical|admin|outbound|credential|mfa|failed|scan,5,1,3,A06,A07|A08|A09
+baseline,add_password,rce|ransomware|exfil|critical|admin|outbound|credential|mfa|failed|scan|password,5,1,4,A06,A07|A08|A09|A10
+baseline,fixed_7_words,rce|ransomware|exfil|critical|admin|outbound|credential,5,1,2,A06,A07|A08
+approval_check,fixed_7_words,rce|ransomware|exfil|critical|admin|outbound|credential,5,1,0,A06,

@@ -1,0 +1,155 @@
+{
+  "about": "AI-assisted draft of 12 synthetic security alert summaries for coursework. Review the reasoning and revise the wording before submission. All hosts, accounts, tickets, exercises, and observations are fictional; no employer data is used. Summaries combine telemetry with stated analyst context, which is not necessarily present in the raw event.",
+  "labeling_policy": "Escalate suspicious unauthorized activity that needs investigation. Close activity only when the stated scenario verifies that it is authorized or routine. The expected and note fields are evaluation information; do not feed them to the agent as decision inputs.",
+  "alerts": [
+    {
+      "id": "A01",
+      "alert": "EDR detected ransomware behavior on FINANCE-04 as an unknown process encrypted shared invoice files and created a ransom note; affected employees confirm the files are no longer readable.",
+      "expected": "escalate",
+      "note": "File encryption, a ransom note, and confirmed loss of access indicate an active incident affecting business data. Immediate investigation and containment are justified."
+    },
+    {
+      "id": "A02",
+      "alert": "An IDS raised an RCE alert against WEB-02, and endpoint logs show the web service launching an unexpected shell immediately after the matching request; no deployment or test was authorized.",
+      "expected": "escalate",
+      "note": "The network detection is corroborated by unexpected process execution on the exposed server, so this is more than an unconfirmed signature match."
+    },
+    {
+      "id": "A03",
+      "alert": "Windows event 4732 on PAYROLL-02 added temp-sync to the local Administrators group; no change was approved and the account owner denies making the addition.",
+      "expected": "escalate",
+      "note": "An unauthorized addition to a privileged local group may enable system takeover. The absence of approval and the owner's denial justify investigating the account and host."
+    },
+    {
+      "id": "A04",
+      "alert": "EDR detected credential dumping behavior on LEGAL-07 when an unknown executable accessed LSASS memory and wrote a dump file; the response team confirms no diagnostic work was authorized.",
+      "expected": "escalate",
+      "note": "The observed access and dump could expose authentication material. An unknown executable and no approved diagnostic activity make this a suspected theft incident."
+    },
+    {
+      "id": "A05",
+      "alert": "Proxy and file-access logs show a 1.8 GB outbound upload of payroll exports from PAYROLL-02 to a destination previously confirmed as a command-and-control endpoint; no transfer was authorized.",
+      "expected": "escalate",
+      "note": "The sensitive files, unauthorized transfer, and independently identified hostile destination together support suspected data theft, rather than a harmless large upload."
+    },
+    {
+      "id": "A06",
+      "alert": "CloudTrail recorded a successful StopLogging call on the production audit trail by a deployment role outside its approved window; the change owner confirms no authorization.",
+      "expected": "escalate",
+      "note": "Stopping the production trail reduces audit visibility and may conceal further activity. The successful unauthorized action requires investigation despite containing none of the four tested lists' keywords."
+    },
+    {
+      "id": "A07",
+      "alert": "Windows event 4732 on LAB-02 added lab-helper to the local Administrators group; ticket CHG-204 verifies the account, host, operator, and training window, and the addition matches the approved work.",
+      "expected": "close",
+      "note": "The privileged change is verified against an approved training activity on the specified lab host. Close this alert because the action matches its authorized scope, even though Administrators contains admin."
+    },
+    {
+      "id": "A08",
+      "alert": "EDR raised a ransomware behavior alert on LAB-03 during exercise SIM-118; the process identity and file changes match the approved simulator, and monitoring confirms activity stayed within the isolated test host.",
+      "expected": "close",
+      "note": "The exact process, behavior, time, and host match a verified exercise with no observed activity outside its scope. This is expected test telemetry, although ransomware triggers every tested keyword list."
+    },
+    {
+      "id": "A09",
+      "alert": "Windows event 4625 shows one failed sign-in on STAFF-06; the employee confirms a typing error, the next attempt succeeds from the same managed laptop, and review finds no other suspicious activity.",
+      "expected": "close",
+      "note": "The isolated failure is explained by the user and supported by the normal follow-up sign-in and surrounding telemetry. There is no evidence of repeated guessing or account misuse in this scenario."
+    },
+    {
+      "id": "A10",
+      "alert": "An Entra audit entry records a completed self-service password reset from the employee's usual device after the required identity verification; the employee confirms initiating the request.",
+      "expected": "close",
+      "note": "The reset follows the expected recovery process and is confirmed by the user. The stated context supports routine account maintenance rather than an unauthorized reset."
+    },
+    {
+      "id": "A11",
+      "alert": "Endpoint protection quarantined the EICAR test file on QA-05 during check AV-041; the file identity and test window match the approved plan and no other detections occurred.",
+      "expected": "close",
+      "note": "EICAR is a test file for checking antivirus responses. The verified file identity, authorization, and matching test scope support closing this expected detection."
+    },
+    {
+      "id": "A12",
+      "alert": "CloudTrail recorded StopLogging for the temporary lab audit trail during teardown TST-309; the approved plan confirms that trail covers only the disposable lab and the production trail remains active.",
+      "expected": "close",
+      "note": "The logging change is limited to an authorized lab teardown and does not remove production audit coverage. The verified scope distinguishes it from the unauthorized production change in A06."
+    }
+  ],
+  "sources": [
+    {
+      "alert_ids": [
+        "A01",
+        "A08"
+      ],
+      "title": "MITRE ATT&CK T1486: Data Encrypted for Impact",
+      "url": "https://attack.mitre.org/techniques/T1486/",
+      "use": "Background on file encryption and ransomware behavior; the exercise and its authorization are fictional scenario context."
+    },
+    {
+      "alert_ids": [
+        "A02"
+      ],
+      "title": "MITRE ATT&CK T1190: Exploit Public-Facing Application",
+      "url": "https://attack.mitre.org/techniques/T1190/",
+      "use": "Background on exploitation of exposed applications; the correlated IDS and endpoint observations are synthetic."
+    },
+    {
+      "alert_ids": [
+        "A03",
+        "A07"
+      ],
+      "title": "Microsoft: Event 4732, A member was added to a security-enabled local group",
+      "url": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4732",
+      "use": "Event meaning and the importance of monitoring privileged-group membership changes."
+    },
+    {
+      "alert_ids": [
+        "A04"
+      ],
+      "title": "MITRE ATT&CK T1003.001: OS Credential Dumping, LSASS Memory",
+      "url": "https://attack.mitre.org/techniques/T1003/001/",
+      "use": "Why suspicious access to LSASS memory and dumping may indicate theft of authentication material."
+    },
+    {
+      "alert_ids": [
+        "A05"
+      ],
+      "title": "MITRE ATT&CK T1041: Exfiltration Over C2 Channel",
+      "url": "https://attack.mitre.org/techniques/T1041/",
+      "use": "Background on stolen data leaving through a command-and-control channel; the transfer and destination assessment are fictional."
+    },
+    {
+      "alert_ids": [
+        "A06",
+        "A12"
+      ],
+      "title": "AWS CloudTrail API Reference: StopLogging",
+      "url": "https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_StopLogging.html",
+      "use": "StopLogging suspends recording and delivery for the specified trail; it does not inherently disable every trail or all AWS logging."
+    },
+    {
+      "alert_ids": [
+        "A09"
+      ],
+      "title": "Microsoft: Event 4625, An account failed to log on",
+      "url": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4625",
+      "use": "Event meaning; the employee confirmation and surrounding telemetry are fictional context supporting the label."
+    },
+    {
+      "alert_ids": [
+        "A10"
+      ],
+      "title": "Microsoft Entra: Reporting options for password management",
+      "url": "https://learn.microsoft.com/en-us/entra/identity/authentication/howto-sspr-reporting",
+      "use": "Self-service password reset activity can be reviewed in audit reports; the identity checks and user confirmation are fictional scenario context."
+    },
+    {
+      "alert_ids": [
+        "A11"
+      ],
+      "title": "EICAR: Anti Malware Testfile",
+      "url": "https://www.eicar.org/download-anti-malware-testfile/",
+      "use": "Purpose of the EICAR test file and why an authorized detection can be routine."
+    }
+  ]
+}

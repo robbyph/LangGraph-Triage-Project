@@ -1,0 +1,2 @@
+langgraph==1.2.19
+ipykernel==7.4.0
